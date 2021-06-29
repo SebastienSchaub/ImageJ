@@ -8,13 +8,13 @@ Then run the program in [Home Directory]\macros\Seb\MaPlanche.ijm.
 ShortCuts:
 
 <li>[1] : Open. Open an image, if necessary, convert in 3 composite channels</li>
-[2] : Reset. Reset each channel to max intensity
-[3] : Copy. Copy the relative intensity of (modal/mean) in the range of min& max contrast. if no selection it get the modal gray, if selection it get the mean gray value
-[4] : WhitBal. Get the white balance of the relative intensity of (modal/mean) to get each channel at 80% (OptimLum can be adapted) of white. if no selection it get the modal gray, if selection it get the mean gray value
-[5] : Paste. Adapt min&max contrast to get the same relative intensity of (modal/mean) per channel
-[6] : Apply. Apply the same transformation as necessary for WhitBal. Useful when a reference image is taken in same conditions.
-[7] : Export. Save and RGB image in the same folder as original one withe the extension "WB.tif". The Scale bar is removed before saving.
-[0] : Parameter. Let tune the OptimLum paramameter and to scale the image
+<li>[2] : Reset. Reset each channel to max intensity</li>
+<li>[3] : Copy. Copy the relative intensity of (modal/mean) in the range of min& max contrast. if no selection it get the modal gray, if selection it get the mean gray value</li>
+<li>[4] : WhitBal. Get the white balance of the relative intensity of (modal/mean) to get each channel at 80% (OptimLum can be adapted) of white. if no selection it get the modal gray, if selection it get the mean gray value</li>
+<li>[5] : Paste. Adapt min&max contrast to get the same relative intensity of (modal/mean) per channel</li>
+<li>[6] : Apply. Apply the same transformation as necessary for WhitBal. Useful when a reference image is taken in same conditions.</li>
+<li>[7] : Export. Save and RGB image in the same folder as original one withe the extension "WB.tif". The Scale bar is removed before saving.</li>
+<li>[0] : Parameter. Let tune the OptimLum paramameter and to scale the image.</li>
 
 for information contact sebastien.schaub@imev-mer.fr
 
