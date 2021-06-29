@@ -6,6 +6,7 @@ For simplicity the program and icon images are incorporated in the directory of 
 Then run the program in [Home Directory]\macros\Seb\MaPlanche.ijm.
 
 ShortCuts:
+
 [1] : Open. Open an image, if necessary, convert in 3 composite channels
 [2] : Reset. Reset each channel to max intensity
 [3] : Copy. Copy the relative intensity of (modal/mean) in the range of min& max contrast. if no selection it get the modal gray, if selection it get the mean gray value
@@ -16,5 +17,7 @@ ShortCuts:
 [0] : Parameter. Let tune the OptimLum paramameter and to scale the image
 
 for information contact sebastien.schaub@imev-mer.fr
+
+
 for details about ActionBar, see:
 https://imagejdocu.tudor.lu/doku.php?id=plugin:utilities:action_bar:start#installation
