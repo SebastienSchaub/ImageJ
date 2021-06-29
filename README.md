@@ -18,6 +18,7 @@ ShortCuts:
 
 for information contact sebastien.schaub@imev-mer.fr
 
+here is a video to introduce it : https://twitter.com/i/status/1409864168749027329
 
 for details about ActionBar, see:
 https://imagejdocu.tudor.lu/doku.php?id=plugin:utilities:action_bar:start#installation
