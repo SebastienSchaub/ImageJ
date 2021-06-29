@@ -7,7 +7,7 @@ Then run the program in [Home Directory]\macros\Seb\MaPlanche.ijm.
 
 ShortCuts:
 
-[1] : Open. Open an image, if necessary, convert in 3 composite channels
+<li>[1] : Open. Open an image, if necessary, convert in 3 composite channels</li>
 [2] : Reset. Reset each channel to max intensity
 [3] : Copy. Copy the relative intensity of (modal/mean) in the range of min& max contrast. if no selection it get the modal gray, if selection it get the mean gray value
 [4] : WhitBal. Get the white balance of the relative intensity of (modal/mean) to get each channel at 80% (OptimLum can be adapted) of white. if no selection it get the modal gray, if selection it get the mean gray value
