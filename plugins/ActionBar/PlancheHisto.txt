@@ -1,0 +1,93 @@
+// Action Bar description file :PlancheHisto
+//run("Action Bar","/plugins/ActionBar/PlancheHisto.txt");
+exit;
+
+<sticky>
+<onTop>
+<startupAction>
+</startupAction>
+
+<line>
+<button> 1 line 1
+label=Open [1]
+icon=PlancheHisto/Open.png
+arg=<macro>
+run("Open [1]");
+</macro>
+</line>
+
+<line>
+<button> 1 line 2
+label=Reset [2]
+icon=PlancheHisto/Reset.png
+arg=<macro>
+run("Reset [2]");
+</macro>
+</line>
+
+<line>
+<button> 1 line 3
+label=Copy [3]
+icon=PlancheHisto/Copy.png
+arg=<macro>
+run("Copy [3]");
+</macro>
+</line>
+
+<line>
+<button> 1 line 4
+label=WhiteBal [4]
+icon=PlancheHisto/WhiteBal.png
+arg=<macro>
+run("WhiteBal [4]");
+</macro>
+</line>
+
+<line>
+<button> 1 line 5
+label=Paste [5]
+icon=PlancheHisto/Paste.png
+arg=<macro>
+run("Paste [5]");
+</macro>
+</line>
+
+<line>
+<button> 1 line 6
+label=Apply [6]
+icon=PlancheHisto/Apply.png
+arg=<macro>
+run("Apply [6]");
+</macro>
+</line>
+
+<line>
+<button> 1 line 7
+label=Quit [7]
+icon=PlancheHisto/Scale.png
+arg=<macro>
+run("Scale [7]");
+</macro>
+</line>
+
+<line>
+<button> 1 line 8
+label=Export [8]
+icon=PlancheHisto/Export.png
+arg=<macro>
+run("Export [8]");
+</macro>
+</line>
+
+<line>
+<button> 1 line 9
+label=Quit
+icon=PlancheHisto/Quit.png
+arg=<close>
+</line>
+
+
+// end of file
+
+
+
