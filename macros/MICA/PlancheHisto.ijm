@@ -51,22 +51,31 @@ macro "Copy [3]"{
 
 //=======================================================
 macro "WhiteBal [4]"{
+	IsSelection=selectionType()!=-1;
 	Stack.getDimensions(width, height, channels, slices, frames);
-	for (i=1;i<=channels;i++){
-		Stack.setChannel(i);
-		getMinAndMax(mn, mx);
-		if (selectionType()==-1) {
-			RefMod[i-1]=GetMod();
+
+	if (IsSelection) run("Select None");
+	for (ic=1;ic<=channels;ic++){
+		Stack.setChannel(ic);
+		
+		if (IsSelection) {
+			run("Restore Selection");
+			getMinAndMax(mn, mx);
+			getRawStatistics(nPixels, mean, min, max, std, histogram);
+			RefMod[ic-1]=mean;
+			run("Select None");
 		}
 		else {
-			getRawStatistics(nPixels, mean, min, max, std, histogram);
-			RefMod[i-1]=mean;
+//			RefMod[ic-1]=GetMod();
+			getMinAndMax(mn, mx);
+			RefMod[ic-1]=getValue("Mode");
 		}
-		CorrInt[i-1]=RefMod[i-1]/(mn+OptimLum*(mx-mn));
-		RefCAxis[2*(i-1)]=mn*CorrInt[i-1];
-		RefCAxis[2*(i-1)+1]=mx*CorrInt[i-1];
-		setMinAndMax(RefCAxis[2*(i-1)], RefCAxis[2*(i-1)+1]);
+		CorrInt[ic-1]=RefMod[ic-1]/(mn+OptimLum*(mx-mn));
+		RefCAxis[2*(ic-1)]=mn*CorrInt[ic-1];
+		RefCAxis[2*(ic-1)+1]=mx*CorrInt[ic-1];
+		setMinAndMax(RefCAxis[2*(ic-1)], RefCAxis[2*(ic-1)+1]);
 	}	
+	if (IsSelection) run("Restore Selection");
 }
 
 //=======================================================
@@ -89,11 +98,14 @@ macro "Paste [5]"{
 
 //=======================================================
 macro "Apply [6]"{
+	IsSelection=selectionType()!=-1;
 	Stack.getDimensions(width, height, channels, slices, frames);
+	if (IsSelection) run("Select None");
 	for (i=1;i<=channels;i++){
 		Stack.setChannel(i);
 		setMinAndMax(RefCAxis[2*(i-1)], RefCAxis[2*(i-1)+1]);
 	}	
+	if (IsSelection) run("Restore Selection");
 }
 
 //=======================================================
@@ -104,16 +116,17 @@ macro "Scale [7]"{
 
 //=======================================================
 macro "Export [8]"{
+	IsSelection=selectionType()!=-1;
 	ImgDir=getInfo("image.directory");
 	ImgName=getInfo("image.filename");
-	run("Select None");
+	if (IsSelection) run("Select None");
 	run("Duplicate...", "duplicate");
 	run("RGB Color");
 	run("Hide Overlay");
 	corename=substring(ImgName,0,lastIndexOf(ImgName, "."));
 	save(ImgDir+corename+"_WB.tif");
 	close();
-	run("Restore Selection");
+	if (IsSelection) run("Restore Selection");
 }
 
 //=======================================================
