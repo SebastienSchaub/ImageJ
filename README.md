@@ -25,6 +25,10 @@ the file *PlancheHisto Manual.pdf* gives more details how to use
 <li>[8] : Export. Save and RGB image in the same folder as original one withe the extension "WB.tif". The Scale bar is removed before saving.</li>
 <li>[0] : Parameter. Let tune the OptimLum paramameter and to scale the image.</li>
 
+## Corrections
+
+<li> 02/11/2022 : small correction due to errors when applying with an ROI
+  
 ## references
 
 - here is a video to introduce it : https://twitter.com/i/status/1409864168749027329
