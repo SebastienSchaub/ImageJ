@@ -8,11 +8,8 @@ The program helps to adapt white balance between images to get homogeneous galle
 
 <li>If using Fiji-MICA, just run it from [MICA_Icon]/White Balance
 <li>If used independently, 
-<ul>
-Plugin/Macros.../Install...
-For simplicity the macro is incorporated in the directory of ImageJ. Unzip the file and copy them in the Fiji folder. No file will be overwritten except action_bar_jar if you already have.
-
-Then run the program in [Home Directory]\macros\MICA\PlancheHisto.ijm.
+<ul><li> copy the folder "plugins" in ImageJ folder. No file will be overwritten except action_bar_jar if you already have.
+<ul><li> Plugin/Macros.../Install...
 
 ## How to use:
 the file *PlancheHisto Manual.pdf* gives more details how to use
