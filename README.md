@@ -29,7 +29,8 @@ the file *PlancheHisto Manual.pdf* gives more details how to use
 
 ## Corrections
 
-<li> 02/11/2022 : small correction due to errors when applying with an ROI
+<li> 02/11/2022 : small correction due to errors when applying with an ROI</li>
+<li> 03/11/2022 : Corretion of Export and now you can export either in JPG or TIF</li>
   
 ## references
 
