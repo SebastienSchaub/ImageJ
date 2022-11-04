@@ -6,6 +6,7 @@ var RefCAxis=newArray(6);
 var CorrInt=newArray(3);
 var ScaleUnit="";
 var ScalePxlImg=0;
+var ExportFormat="JPG";
 
 macro "Starting"{
 	run("Install...", "install=["+getDirectory("macros")+"MICA\\PlancheHisto.ijm]");
@@ -39,7 +40,7 @@ macro "Copy [3]"{
 	for (i=1;i<=channels;i++){
 		Stack.setChannel(i);
 		if (selectionType()==-1) {
-			RefMod[i-1]=GetMod();
+			RefMod[i-1]=getValue("Mode");
 		}
 		else {
 			getRawStatistics(nPixels, mean, min, max, std, histogram);
@@ -47,6 +48,7 @@ macro "Copy [3]"{
 		}
 		getMinAndMax(RefCAxis[2*(i-1)], RefCAxis[2*(i-1)+1]);
 	}	
+	Stack.setDisplayMode("composite");
 }
 
 //=======================================================
@@ -80,20 +82,23 @@ macro "WhiteBal [4]"{
 
 //=======================================================
 macro "Paste [5]"{
+	IsSelection=selectionType()!=-1;
 	Stack.getDimensions(width, height, channels, slices, frames);
+	if (IsSelection) run("Select None");
 	for (i=1;i<=channels;i++){
 		Stack.setChannel(i);
 		getMinAndMax(mn, mx);
-		if (selectionType()==-1) TmpRefMod=GetMod();
-		else {
+		if (IsSelection) {
 			getRawStatistics(nPixels, mean, min, max, std, histogram);
 			TmpRefMod=mean;
 		}
+		else TmpRefMod=getValue("Mode");
 		
 		LumMod=(RefMod[i-1]-RefCAxis[2*(i-1)])/(RefCAxis[2*(i-1)+1]-RefCAxis[2*(i-1)]);
 		k=TmpRefMod/(LumMod*(mx-mn)+mn);
 		setMinAndMax(k*mn, k*mx);
 	}	
+	if (IsSelection) run("Restore Selection");
 }
 
 //=======================================================
@@ -115,6 +120,7 @@ macro "Scale [7]"{
 }
 
 //=======================================================
+/*
 macro "Export [8]"{
 	IsSelection=selectionType()!=-1;
 	ImgDir=getInfo("image.directory");
@@ -125,6 +131,27 @@ macro "Export [8]"{
 	run("Hide Overlay");
 	corename=substring(ImgName,0,lastIndexOf(ImgName, "."));
 	save(ImgDir+corename+"_WB.tif");
+	close();
+	if (IsSelection) run("Restore Selection");
+}
+*/
+//=======================================================
+macro "Export [8]"{
+	IsSelection=selectionType()!=-1;
+	ImgDir=getInfo("image.directory");
+	ImgName=getInfo("image.filename");
+	if (IsSelection) run("Select None");
+	corename=substring(ImgName,0,lastIndexOf(ImgName, "."));
+	if (ExportFormat=="JPG") save(ImgDir+corename+"_WB.jpg");
+	if (ExportFormat=="TIF"){
+		run("Duplicate...", "duplicate");
+		for (ic=1;ic<=3;ic++){
+			Stack.setChannel(i);
+			run("Apply LUT");
+		}
+		run("RGB Color");
+		save(ImgDir+corename+"_WB.tif");
+	}
 	close();
 	if (IsSelection) run("Restore Selection");
 }
@@ -149,6 +176,7 @@ macro "Parameters [0]"{
      +"</table>"   
      +"</html>";
 	Dialog.create("PlancheHisto Parameters");
+	Dialog.addChoice("Export format", newArray("TIF","JPG"), ExportFormat);
 	Dialog.addNumber("Optim Lum [0..1]", OptimLum);
 	Dialog.addMessage("Red  =[ "+round(RefCAxis[0])+".("+round(RefMod[0])+")."+round(RefCAxis[1])+" ]") 
 	Dialog.addMessage("Green=[ "+round(RefCAxis[2])+".("+round(RefMod[1])+")."+round(RefCAxis[3])+" ]") 
@@ -158,6 +186,7 @@ macro "Parameters [0]"{
 	Dialog.addString("Unit", ScaleUnit, 8);
 	Dialog.addHelp(myhelp);
 	Dialog.show();
+	ExportFormat = Dialog.getChoice();
 	OptimLum = Dialog.getNumber();
 	ScalePxlImg = Dialog.getNumber();
 	ScaleUnit = Dialog.getString();
@@ -166,21 +195,6 @@ macro "Parameters [0]"{
 	run("Properties...", "pixel_width="+ScalePxlImg+" pixel_height="+ScalePxlImg);
 	AddScaleBar();
 }
-
-//--------------------------------------------------------
-function GetMod(){
-	nBins = 256;
-	getHistogram(values, counts, nBins);
-	i_max = 0;
-	N_max = 0;
-	for(i=1; i<nBins; i++){
-	    if(counts[i]>N_max){
-	        N_max = counts[i];
-	        i_max = i;
-	    }
-    }
-    return values[i_max];
-}  
 
 //--------------------------------------------------------
 function AddScaleBar(){
@@ -201,6 +215,21 @@ function AddScaleBar(){
 /*=======================================================
 // OLDER
 //=======================================================
+function GetMod(){
+	nBins = 256;
+	getHistogram(values, counts, nBins);
+	i_max = 0;
+	N_max = 0;
+	for(i=1; i<nBins; i++){
+	    if(counts[i]>N_max){
+	        N_max = counts[i];
+	        i_max = i;
+	    }
+    }
+    return values[i_max];
+}  
+
+//--------------------------------------------------------
 function GetRef(){
 	while (selectionType()==-1)	waitForUser("Draw Ref ROI");
 	Stack.getDimensions(width, height, channels, slices, frames);
